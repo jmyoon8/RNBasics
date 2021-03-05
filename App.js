@@ -1,21 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, FlatList, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import GoalItem from './Components/GoalItem';
+import InputText from './Components/InputText';
 
 export default function App() {
+
+  const [goalInput,setGoalInput]=useState([])
+  const [visible,setVisible]=useState("false")
+
+  const deleteElement=(key)=>{
+    console.log(`${key} delete`)
+    goalInput.splice(key,1)
+    setGoalInput([...goalInput])
+  }
+  const openModal=()=>{
+    setVisible(true)
+  }
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Button title="openModal" onPress={openModal}/>
+      <InputText setGoalInput={setGoalInput} setVisible={setVisible} visible={visible}/>
+      <FlatList data={goalInput} renderItem={(value)=> 
+        <GoalItem key={value.index} index={value.index} text={value.item} deleteElement={deleteElement}/>
+      }/>
+        <StatusBar style="dark"/>  
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    padding:50
+   },
+  
 });

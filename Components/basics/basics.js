@@ -41,6 +41,7 @@ export default function basics(props) {
         <Text>높이에 맞지롤~{platform}</Text>
         <Text>
           {numbers.join(',')}
+          {'파람받은거'+props.route.params.id}
         </Text>
         <Text>
             <Button onPress={()=>setToggle(!toggle)} title="조또번호"/>

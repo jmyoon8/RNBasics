@@ -3,41 +3,16 @@ import { StyleSheet } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack'
 import NaviList from './Components/Navigation/NaviList'
 import TodoList1 from './Components/TodoList_1/ToDoList_tab'
 import TodoList2 from './Components/TodoList_2/TodoList'
 import basics from './Components/basics/basics'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const Tab=createBottomTabNavigator()
-const Stack=createStackNavigator()
-
-
-//tabNavigation에서 stacknavigation을 쓰는방법
-
-//1 . 각탭에서 쓰일 stack을 따로 구분짓고
-function HomeStack(){
-  return(
-    <Stack.Navigator>
-        <Stack.Screen name="home" component={NaviList}/>
-        <Stack.Screen name="basics" component={basics}/>
-    </Stack.Navigator>
-  )
-}
-
-function ToDoStack(){
-  return(
-    <Stack.Navigator>
-        <Stack.Screen name="TodoList1" component={TodoList1}/>
-        <Stack.Screen name="TodoList2" component={TodoList2}/>
-    </Stack.Navigator>
-  )
-}
-//각각의 stack을 tabRoute에 넣는다.
 export default function App() {
 
   // 바텀 탭 네비게이터
+  const Tab=createBottomTabNavigator()
 
 
   const dd="프랍으로 전달한 데이터"
@@ -66,10 +41,13 @@ export default function App() {
         })} tabBarOptions={{activeTintColor:'tomato', inactiveTintColor:'gray'}}  >
           
             <Tab.Screen  name="home">
-                  {props=><HomeStack {...props}  extradata={dd}/>}
+                  {props=><NaviList {...props}  extradata={dd}/>}
             </Tab.Screen>
-            <Tab.Screen name="TodoListStack" component={ToDoStack} options={{tabBarBadge:3}} />
             
+            <Tab.Screen name="basics" component={basics}  initialParams={{id:"나는나야"}}/>
+                                                                        {/* 뱃지를 통해 알림같은것을 표현할 수있따. */}
+            <Tab.Screen name="TodoList1" component={TodoList1} options={{tabBarBadge:3}} />
+            <Tab.Screen name="TodoList2" component={TodoList2}/>
         </Tab.Navigator>
        
       </NavigationContainer>

@@ -36,22 +36,10 @@ const InputText = (props) => {
 export default InputText
 
 const styles = StyleSheet.create({
-    
-       textInput:{
-         borderBottomColor:'black',
-         borderBottomWidth:1,
-         width:"80%",
-         
-       },
-       textInputer:{
-         flex:1,
-         flexDirection:'column',
-         justifyContent:'center', 
-         alignItems:'center',
-         marginBottom:30
-
-       },
-       button:{
-         
-       }
+    textInputer:{
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center',
+      marginBottom:300
+    }
 })

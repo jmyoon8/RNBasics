@@ -1,17 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Button, FlatList, StyleSheet, View } from 'react-native';
-import GoalItem from './Components/GoalItem';
-import InputText from './Components/InputText';
+import GoalItem from './GoalItem';
+import InputText from './InputText';
 
-export default function App() {
+export default function ToDoList(props) {
 
   const [goalInput,setGoalInput]=useState([])
   const [visible,setVisible]=useState("false")
 
-  const deleteElement=(key)=>{
-    console.log(`${key} delete`)
-    goalInput.splice(key,1)
+  const deleteElement=(index)=>{
+    console.log(`${index} delete`)
+    goalInput.splice(index,1)
     setGoalInput([...goalInput])
   }
   const openModal=()=>{
@@ -24,7 +24,10 @@ export default function App() {
       <FlatList data={goalInput} renderItem={(value)=> 
         <GoalItem key={value.index} index={value.index} text={value.item} deleteElement={deleteElement}/>
       }/>
-        <StatusBar style="dark"/>  
+        
+        <Button title="고백" onPress={()=>props.navigation.popToTop()}/>
+
+        
     </View>
   );
 }
